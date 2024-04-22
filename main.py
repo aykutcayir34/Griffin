@@ -44,10 +44,10 @@ class RGLRU(nn.Module):
         self.hidden_dim = config.D_RNN # * config.mult
         self.Wa = nn.Parameter(data= torch.Tensor(self.hidden_dim, config.D_RNN))
         self.Wx = nn.Parameter(data=torch.Tensor(self.hidden_dim, config.D_RNN))
-        self.ba = nn.Parameter(data=torch.Tensor(config.D_RNN))
-        self.bx = nn.Parameter(data=torch.Tensor(config.D_RNN))
+        self.ba = nn.Parameter(data=torch.Tensor(self.hidden_dim))
+        self.bx = nn.Parameter(data=torch.Tensor(self.hidden_dim))
         self.c = 8 # The paper suggested this value page: 4
-        self.lmbd = nn.Parameter(data=torch.Tensor(config.D_RNN))
+        self.lmbd = nn.Parameter(data=torch.Tensor(self.hidden_dim))
 
         self.reset_parameters()
 
