@@ -120,14 +120,14 @@ class Hawk(nn.Module):
         super().__init__()
         self.word_embedding = nn.Embedding(config.vocab_size, config.D)
         self.blocks = nn.ModuleList([ResidualBlock(config=config) for i in range(config.N)])
-        self.predict = nn.Linear(config.D, config.vocab_size)
+        self.lm_head = nn.Linear(config.D, config.vocab_size)
 
     def forward(self, x):
         x = self.word_embedding(x)
         for block in self.blocks:
             x = block(x)
 
-        return self.predict(x)
+        return self.lm_head(x)
 
 def count_parameters(model):
     return sum(p.numel() for p in model.parameters() if p.requires_grad)
